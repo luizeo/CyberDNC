@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OPC-MTConnect-Graco-UNB</title>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+	
+	<script type="text/javascript" src="Agent.js"></script>
+	<script type="text/javascript" src="DataItem.js"></script>
+	
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css"/>
+	<link rel="stylesheet" href="css/DataItem.css"/>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="css/mobile.css" media="(max-width: 939px)">
+	<script type = "text/javascript">
+	
+       /*$(document).ready(function(){
+	     $("#cams").load('noimage.html');
+	   })*/
+	   /* Controle MTConnect*/
+	   $(document).ready(function(){
+	   
+				$('#startstream').click(function(){
+					var options = {
+						proxy: "http://localhost/opcmtcweb/proxy.php?url=",
+						url: "http://mtconnectgraco.sytes.net:8080",
+						interval: 1000
+					};
+				
+					var agent = new Agent(options);
+					var $agent = $(agent);
+					$agent.bind('devices', function(e, doc){
+						$('td').empty();
+						Agent.dataItems(doc).each(function(){
+							var $this = $(this);
+							var name = $this.attr('name') || $this.attr('id');
+							if($("#"+ name).length){ 
+							 $("<span></span>").DataItem('init', this).appendTo("#"+ name);
+							}
+						});
+					})
+					.bind('streams', function(e, doc){
+						Agent.dataItems(doc).each(function(){
+							var $this = $(this);
+							if($("#" + $this.attr('dataItemId')).length){
+							var $elem = $('[data-itemid="' + $this.attr('dataItemId') + '"]');
+							    $elem.DataItem('update', this);
+							} else if ($("#" + $this.attr('name')).length){
+							  var $elem = $('[data-itemid="' + $this.attr('name') + '"]');
+							    $elem.DataItem('update', this);
+							}
+						});
+					})
+					.bind('errors', function(e, doc){
+						console.log(doc);
+						$('<div></div>')
+							.text( $(doc).find('Error').text() )
+							.dialog({
+								appendTo: 'body',
+								modal: true
+							})
+						;
+					});
+					agent.monitor();
+					
+				});
+				
+
+			});
+			
+			/*Outros Controles*/
+	   
+	   function loadvideo(cam){
+	     $("#cams").attr('src',cam);
+	   }
+	   
+	   function loadcgi(inpt){
+	     var valor = $(inpt).attr("value");
+		 if(valor=="down"){
+		  $("#commands").attr('src',"cnc_download.htm");
+		 }
+		 else if (valor=="up"){
+		 $("#commands").attr('src',"cnc_upload3.htm");
+		 }else if (valor=="mdi"){
+		 $("#commands").attr('src',"cnc_wrmdiprog.htm");
+		 }else if (valor=="del"){
+		 $("#commands").attr('src',"cnc_delete.htm");
+		 } else if (valor=="list"){
+		  $("#commands").attr('src',"cnc_rdprogdir2.html");
+		  $("#prgs").load("cgi-bin/read/cnc_rdprogdir2.cgi");
+		 }
+	   }
+	   
+	   function opccommand(ipt){
+	   
+	     var vlr = $(ipt).attr("value");
+		 var imagem = "";
+		if(vlr=="AUTO"){
+		   $.post("cgi-bin/write/auto.py");
+		     imagem = "#iauto";
+		     $("#iedit").attr('src',"img/off.png");
+			 $("#imdi").attr('src',"img/off.png");
+			 $("#ijog").attr('src',"img/off.png");
+		 } else if (vlr=="EDIT"){
+		   $.post("cgi-bin/write/edit.py");
+		     imagem = "#iedit";
+		     $("#iauto").attr('src',"img/off.png");
+			 $("#imdi").attr('src',"img/off.png");
+			 $("#ijog").attr('src',"img/off.png");
+		 }else if (vlr=="MDI"){
+		   $.post("cgi-bin/write/wmdi.py");
+		     imagem = "#imdi";
+		     $("#iauto").attr('src',"img/off.png");
+			 $("#iedit").attr('src',"img/off.png");
+			 $("#ijog").attr('src',"img/off.png");
+		 }else if (vlr=="JOG"){
+		   $.post("cgi-bin/write/jog.py");
+		     imagem = "#ijog";
+		     $("#iauto").attr('src',"img/off.png");
+			 $("#iedit").attr('src',"img/off.png");
+			 $("#imdi").attr('src',"img/off.png");
+		 } else if (vlr=="CYCLE START"){
+		  $.post("cgi-bin/write/cycstart.py");
+		     $("#icystart").delay(3000).attr('src',"img/on.png").attr('src',"img/off.png");;
+		 }else if (vlr=="CYCLE STOP"){
+		  $.post("cgi-bin/write/cycstop.py");
+		     imagem = "#icystop";	 
+		 }else if (vlr=="COOL ON"){
+		  $.post("cgi-bin/write/coolon.py");
+		     imagem = "#icoolon";
+			 $("#icooloff").attr('src',"img/off.png");
+			 $("#icoolauto").attr('src',"img/off.png");
+		 }else if (vlr=="COOL OFF"){
+		  $.post("cgi-bin/write/cooloff.py");
+		     imagem = "#icooloff";
+			 $("#icoolon").attr('src',"img/off.png");
+			 $("#icoolauto").attr('src',"img/off.png");
+		 }else if (vlr=="COOL AUTO"){
+		  $.post("cgi-bin/write/coolauto.py");
+		     imagem = "#icoolauto";
+			 $("#icoolon").attr('src',"img/off.png");
+			 $("#icooloff").attr('src',"img/off.png");
+		 }else if (vlr=="-Z"){
+		  $.post("cgi-bin/write/zm.py");
+		 }else if (vlr=="+Z"){
+		  $.post("cgi-bin/write/zp.py");
+		 } else if (vlr=="-X"){
+		  $.post("cgi-bin/write/xm.py");
+		 }else if (vlr=="+X"){
+		  $.post("cgi-bin/write/xp.py");
+		 }else if (vlr=="SING BLOCK"){
+		  $.post("cgi-bin/write/singblk.py");
+		     imagem = "#isgblk";
+		 }else if (vlr=="BLOCK DEL"){
+		  $.post("cgi-bin/write/blkdel.py");
+		     imagem = "#iblkdel";
+		 }else if (vlr=="DRY RUN"){
+		  $.post("cgi-bin/write/dryrun.py");
+		     imagem = "#idryrun";
+		 }else if (vlr=="PROG TEST"){
+		  $.post("cgi-bin/write/progtest.py");
+		     imagem = "#ijprgtest";
+		 }
+		 $imag = $(imagem);
+		 ($imag.attr("src") == "img/off.png")? $imag.attr('src',"img/on.png"):$imag.attr('src',"img/off.png");
+	   }
+	   
+     </script>
+	<!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+  <body>
+    <div id="fundo" class="main-container">
+     <div id="side-left" class="control-left">
+	 <img src="img/machineON.jpg" alt="Machine ON" class="maquina">
+<!--          <div style="background-color:black;color:white;">
+		   <h1>Conteudo OPC - Imagem dinamica</h1>
+	       <p>Aqui escrevo todos os controles referentes ao serviço OPC - Imagem Imagem</P>
+		</div> -->
+		<div class="panel-led">
+		  <h1>LEDs <h1> 
+		  <ul>
+		      <li>
+				<img src="img/off.png" alt="On" id="imcalm"> MC ALM
+			  </li>
+			  <li>
+				<img src="img/off.png" alt="On" id="iauto"> AUTO
+			  </li>
+			  <li>
+			   <img src="img/off.png" alt="On" id="imdi"> MDI
+			  </li>
+			  <li>
+				 <img src="img/off.png" alt="On" id="isgblk"> SING BLK
+			  </li>
+			  <li>
+			   <img src="img/off.png" alt="On" id="idryrun"> DRY RUN
+				 
+			  </li>
+			  <li>
+			   <img src="img/off.png" alt="On" id="icoolon"> COOL ON
+			  </li>
+			  <li>
+				   <img src="img/off.png" alt="On" id="icoolauto"> COOL AUTO
+			  </li>
+               <li>
+				  <img src="img/off.png" alt="On" id="icystop"> CYCLE STOP
+			  </li>
+		  </ul>
+		  
+		  <ul>
+		  <li>
+		    <ul>
+	        <li>
+				<img src="img/off.png"  id="incalm"> NC ALM
+			  </li>
+			  <li>
+			     <img src="img/off.png"  id="iedit"> EDIT
+			  </li>
+			  <li>
+				  <li><img src="img/off.png" id="ijog"> JOG
+			  </li>
+			  <li>
+				  <img src="img/off.png" id="iblkdel"> BLK DEL
+			  </li>
+			  <li>
+				  <img src="img/off.png" id="iprgtest"> PROG TEST
+			  </li>
+			  <li>
+				 <img src="img/off.png" id="icooloff"> COOL OFF
+			  </li>
+			  <li>
+                 <img src="img/off.png" id="icystart"> CYCLE START
+			  </li>
+			  <li>
+				  <img src="img/off.png" id="idoorcld"> DOOR CLOSED
+			  </li>
+		  </ul>
+		</div>
+		<div class="panel-button">
+		  <h1>OPERATION PANEL <h1>
+		  <ul>
+		   <li>
+				  
+					 <input type="button" value="AUTO" onclick="opccommand(this)">
+					 <input type="button" value="EDIT" onclick="opccommand(this)">
+					 <input type="button" value="MDI" onclick="opccommand(this)">
+					 <input type="button" value="JOG" onclick="opccommand(this)">
+		  </li>
+		  <li>
+				 
+					 <input type="button" value="SING BLOCK" onclick="opccommand(this)">
+					 <input type="button" value="BLOCK DEL" onclick="opccommand(this)">
+					 <input type="button" value="DRY RUN" onclick="opccommand(this)">
+					 <input type="button" value="PROG TEST" onclick="opccommand(this)">
+		 </li>
+		 <li>
+					 <input type="button" value="-X" onclick="opccommand(this)">
+					 <input type="button" value="+X" onclick="opccommand(this)">
+					 <input type="button" value="-Z" onclick="opccommand(this)">
+					 <input type="button" value="+Z" onclick="opccommand(this)">
+		 </li>
+		 <li>
+					 <input type="button" value="COOL ON" onclick="opccommand(this)">
+					 <input type="button" value="COOL OFF" onclick="opccommand(this)">
+					 <input type="button" value="COOL AUTO" onclick="opccommand(this)">
+	     </li>
+		 		 <li>
+					 <input type="button" value="CYCLE START" onclick="opccommand(this)">
+					 <input type="button" value="CYCLE STOP" onclick="opccommand(this)">
+	     </li>
+		  <li>
+					 <input type="button" value="RESET" onclick="opccommand(this)">
+	     </li>
+	 </ul>
+    </div>
+	
+     </div><!-- fim .container .destaque -->
+
+	  <div id="side-right" class="control-right">
+        <div class="mtcbutton">
+		   <button id="startstream">Start Monitor</button>
+	    </div>
+		<div class="mtcdisplay">
+		  
+		  <h1>MACHINE STATUS</h1></br>
+		  
+		  <table id="ms">
+            
+			<tr><th>Availability</th><th>Execution</th> <th>Contr. Mode</th> <th>Emerg. Stop</th> <th>Part Count</th></tr>
+            
+			<tr><td id='avail'>unavailable</td><td id='execution'>unavailable</td> <td id='mode'> unavailable</td><td id='estop'> unavailable</td><td id='part_count'>unavailable</td></tr>
+          
+		 </table></br>
+		  
+		   <h1>PROCESS STATUS</h1></br>
+          <table id="ps">
+		  
+           <tr><th>Program</th><th>Block</th><th> Line</th></tr>
+			 <tr><td id='program'>unavailable</td><td id='block'>unavailable</td><td id='line'>unavailable</td></tr>
+            
+			 <tr><th> Tool ID</th><th>Xact(mm)</th><th>Zact(mm)</th></tr>
+			 <tr><td id='tool_id'>unavailable</td><td id='Xact'>unavailable</td><td id='Zact'>unavailable</td></tr>
+        
+			 <tr><th>Cact[Angle(º)]</th><th>Act Spdle Speed(rpm)</th><th>Xcom(mm)</th></tr>
+			  <tr><td id='Cact'>unavailable</td><td id='S1speed'>unavailable</td><td id='Xcomm'>unavailable</td></tr>
+			  
+			 <tr><th>Zcom(mm)</th><th>Rotary Mode</th><th>Ccom Pos.(º)</th></tr>
+			  <tr><td id='Zcomm'>unavailable</td><td id='rfunc'>unavailable</td><td> - </td></tr>
+             
+			 <tr><th>Xload (%)</th> <th>Zload(%)</th><th>Cload(%)</th></tr>
+			 <tr><td id='Xload'>unavailable</td><td id='Zload'>unavailable</td><td id='Cload'>unavailable</td></tr>
+			 
+			 <tr><th>Spndle Load(%)</th><th>Act.Path Frt(mm/s)</th><th>Frt Override(%)</th></tr>
+			 <tr><td id='S1load'>unavailable</td><td id='path_feedrate'>unavailable</td><td id='f_command'>unavailable</td></tr>
+			 	  
+			 <tr> <th>Act.Path Pos.(mm)</th><th>-</th></td><th>-</th></tr>
+			 <tr><td id='path_position'>unavailable</td><td>-</td></td><td>-</td></tr>
+           
+         </table></br>
+		  
+		  <h1>PROCESS CONDITION</h1></br>
+		  
+		  <table id="pc">
+		  
+           <tr><th>System</th><th>Communications</th> <th>Motion Prog</th> <th>Logic Prog.</th></tr>
+            
+			<tr><td id='system'>unavailable</td><td id='comm'>unavailable</td> <td id='motion'> unavailable</td><td id='logic'> unavailable</td></tr>
+			
+			<tr><th>Hardware</th><th>Temperature</th> <th>Overload(X)</th> <th>Overtravel(X)</th></tr>
+            
+			<tr><td id='hardware'>unavailable</td><td id='temp'>unavailable</td><td id='Xoverload'>unavailable</td><td id='Xtravel'>unavailable</td></tr>
+			 
+			<tr><th>Overload(Z)</th> <th>Overtravel(Z)</th><th>Overload(C)</th><th>Overtemp(C)</th></tr>
+            
+			<tr><td id='Zoverload'>unavailable</td><td id='Ztravel'>unavailable</td> <td id='Coverload'> unavailable</td><td id='Ctemp'> unavailable</td></tr>
+			
+			<tr><th>Overload(S1)</th><th>Overtemp(S1)</th><th>-</th> <th>-</th></tr>
+           
+			<tr><td id='S1overload'>unavailable</td><td id='S1temp'>unavailable</td><td>-</td><td> -</td></tr>
+          
+		  </table>
+
+		</div>
+
+		<div class="dnc">
+				 <form>
+					 <input type="radio" name="comando" value="down" onclick="loadcgi(this)" Unchecked> NC Prog. Download
+					 <input type="radio" name="comando" value="up" onclick="loadcgi(this)" Unchecked> NC Prog. Upload
+					 <input type="radio" name="comando" value="mdi" onclick="loadcgi(this)" Unchecked> MDI
+					 <input type="radio" name="comando" value="del" onclick="loadcgi(this)" Unchecked> Delete NC Prog.
+					 <input type="radio" id="list" name="comando" value="list" onclick="loadcgi(this)" Unchecked> List NC Prog.
+				</form>
+		</div>
+		<iframe id = "commands" class="dncdisplay" name="dnc" src="initmsg.html">
+		   **CLICK ON DNC FUNCTION**
+		</iframe>
+	   
+		<iframe id="cams" class="cameras" src="noimage.html">
+		 
+		</iframe>
+		<div class="activecam">
+		
+		 <button type="button" onclick="loadvideo('http://video.graco.unb.br/camera1.html')">CAM1</button>
+		 <button type="button" onclick="loadvideo('http://video.graco.unb.br/camera2.html')">CAM2</button>
+		 <button type="button" onclick="loadvideo('http://video.graco.unb.br/camera3.html')">CAM3</button>
+		 <button type="button" onclick="loadvideo('http://video.graco.unb.br/camera4.html')">CAM4</button>
+		 <button type="button" onclick="javascript:window.open('http://video.graco.unb.br')" target = "_blank" >ALL</button>
+		</div>
+	    <div class="showmsg">
+	     <p>Alarm/messages:</p></br>
+		  <p id="message"></p>
+	   </div>
+		<div id="prgs" class="listprogram">
+		   <p>***List NC Programs***</p>
+		</div>
+      </div>
+ </div>
+  </body>
+</html>

@@ -1,0 +1,270 @@
+body {
+  color: #333333;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.main-container{
+	margin: 0 auto;
+    width: 92%;
+    border: 3px solid #E5E5E5; 
+    padding: 10px;
+	background-color:#E5E5E5;
+	position:relative;
+	display:table;
+}
+.control-left{
+	margin: auto;
+	float:left;
+	vertical-align:middle;
+	background-color:white;
+	padding: 5px;
+	display:inline-block;
+	width:22%;
+    
+}
+
+.control-right{
+   margin: auto;
+   clear:left;
+   margin-left:8px;
+   vertical-align:middle;
+   background-color:white;
+   padding: 8px 5px 5px 5px;
+   display:inline-block;
+   width:75%;
+ /*   right:1%; */
+}
+
+
+/*Configurações DIV Lateral:esquerda*/
+.panel-led{
+	background-color:white;
+	color:black;
+	margin-top:5px;
+	padding:5px;
+}
+
+.panel-led ul li {
+	display:block;
+	font-size:12px;
+	margin-top:2px;
+}
+.panel-led ul {
+	display:inline-block;
+	margin-left:10px;
+	margin-bottom:5px;
+}
+
+.panel-button{
+   margin-top:5px;
+   padding:5px;
+}
+.panel-button ul {
+  padding-left:5px;
+}
+.panel-button li {
+	display:block;
+	margin:auto;
+	padding-top:5px;
+	
+}
+.panel-button input {
+	display:inline-block;
+	font-size:12px;
+	font-weight:bold;
+	width:60px;
+    height:35px;
+	white-space:normal;
+	border: 2px solid;
+	border-radius:3px;
+}
+	
+/* .panel-button input{
+	
+} */
+
+.panel-button h1 , .panel-led h1{
+  padding-bottom:5px;
+  padding-left:5px;
+  font-size:14px;
+  font-weight:bold;
+  border-bottom: 2px solid #E5E5E5;
+}
+.control-left,.control-right,.panel-led,.panel-button{
+	border: 3px solid #919191;
+	border-radius:5px;
+}
+
+.maquina{
+	left:50%;
+	margin-left:25px;
+	margin-top:5px;
+}
+/*Configurações DIV Principal:direita*/
+.mtcbutton{
+	padding:8px;
+}
+.mtcbutton button{
+  font-weight:bold;
+  height:30px;
+  border: 2px solid;
+  border-radius:3px;
+}
+
+/*Configurações da Tabela MtConnect*/
+.mtcdisplay{
+  margin-top:5px;
+  padding:7px;
+  /* text-align:center; */
+  height:660px; /*Mudei, era 150px*/
+  width:63%;
+  float:left;
+  display:inline-block;
+}
+.mtcdisplay h1{
+	background-color:rgb(217,217,217);
+	font-weight: bold;
+}
+
+table#ps {
+	width:610px;
+	padding-bottom:10px;
+	margin-left:5px;
+}
+table#ms{
+	width:560px;
+	margin-left:5px;
+}
+
+table#pc{
+	width:560px;
+	margin-left:5px;
+}
+  tr:nth-child(odd) {
+    background-color: rgb(230,230,230);
+}
+/*  table#ms tr:nth-child(odd) {
+    background-color: rgb(234,236,215);
+}
+ table#ps th:nth-child(odd) {
+    background-color: rgb(234,236,215);
+}
+ table#pc tr:nth-child(odd) {
+    background-color: rgb(234,236,215); 
+}*/
+.mtcdisplay th{
+	    border: 1px solid rgb(46,46,46);
+        text-align: center;
+        padding: 2px 0px 2px 2px;
+		/* height:12px; */
+		font-weight: bold;
+		font-size:14px;
+		/* width:150px; */
+}
+
+.mtcdisplay td{
+	    border: 1px solid rgb(46,46,46);
+        text-align: center;
+         padding: 2px 0px 3px 2px;
+		 height:16px;
+		 font-size:14px;
+		/* width:150px; */
+}
+
+
+/*Fim de Configurações Tabela*/
+
+.dnc{
+	padding:7px;
+	margin-top:5px;
+	font-size:12px;
+	text-transform:uppercase;
+}
+.dnc form {
+	margin: auto;
+    width:92%;
+}
+.dncdisplay{
+	margin-top:5px;
+	padding:8px;
+	text-align:center;
+	height:120px;
+	overflow:hidden;
+}
+/* .showmsg{
+	margin-top:5px;
+	padding:8px;
+	width:63%;
+	float:left;
+	display:inline-block;
+	overflow-y:auto;
+	height:50px;
+	overflow:auto;
+}
+.showmsg p{
+   text-align:center;
+   color:#DCDCDC
+} */
+.mtcbutton,.dnc,.dncdisplay{
+	border: 3px solid #919191;
+	border-radius:5px;
+	width:63%;
+	float:left;
+	display:inline-block;
+}
+
+/*Painel camera, alarmes, mensagens e display*/
+.cameras{
+	padding:2px;
+	display:block;
+	height:260px;
+	overflow:hidden;
+}
+.cameras img{
+ margin: auto;
+ width:100%;
+}
+.activecam{
+	padding:3px;
+	display:block;
+	margin-top:5px;
+}
+
+.activecam button{
+	display:inline;
+	font-weight:bold;
+    height:25px;
+    border: 2px solid;
+    border-radius:3px;
+	margin: 1px;
+	width:18%;
+	
+}
+.listprogram{
+    padding:3px;
+	display:block;
+	margin-top:5px;
+	height:180px;
+	overflow:auto;
+}
+
+.listprogram p{
+	text-align:left;
+	color:#DCDCDC
+}
+.showmsg{
+    padding:3px;
+	display:block;
+	margin-top:5px;
+	height:100px;
+	overflow:auto;
+}
+.cameras,.activecam,.showmsg{
+	border: 3px solid #919191;
+	border-radius:5px;
+}
+.cameras,.activecam,.listprogram,.showmsg{
+	clear:left;
+	display:inline-block;
+	width:33%;
+	margin-left:8px;
+}

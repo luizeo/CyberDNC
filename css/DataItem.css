@@ -1,0 +1,48 @@
+[data-role="DataItem"]{
+	 /* display: inline-block; */
+	/* background: LightSlateGray; */
+	color: blue;
+	/* margin: 0 4px  4px 0; *//*6px*/
+	/* padding: 2px; */ /*3px*/
+	/* min-width: 19%; */
+	list-style-type: none;
+	/* cursor: pointer; */ 
+ 	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none; 
+}
+
+/* [data-role="DataItem.Name"]{
+	font-size: 9px; /* smaller; modificado
+	 margin: 0; 
+} */
+
+/* [data-role="DataItem.Type"], [data-role="DataItem.Subtype"]{
+	font-size: 12px; large; modificado
+	 margin: 0; 
+	 text-transform: lowercase; 
+} */
+
+/* [data-role="DataItem.Value"]{
+	 display: block;
+	padding: 3px; 
+} */
+
+.UNAVAILABLE{
+	background: gray;
+}
+
+.NORMAL,.AVAILABLE,.ACTIVE,.ARMED{
+	background: rgb(111,255,111);
+}
+
+.WARNING,.READY{
+	background: GoldenRod;
+}
+
+.FAULT,.STOPPED,.TRIGGERED{
+	background: rgb(255,117,117);
+}

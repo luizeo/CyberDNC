@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WSS - Web Supervisory System (GRACO/UNB)</title>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/estilos.css">
+	<link rel="stylesheet" href="css/mobile.css" media="(max-width: 939px)">
+	<!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+  <body>
+     <header class="container">
+		<p id="cabecalho">
+		</br>
+		</br>
+		  WSS - Web Supervisory System (GRACO/UNB)<p>
+		<nav class="menu-opcoes" id="menu">
+			<ul>
+			  <li><a href="?pg=machine" target="conteudo">Machine</a></li>
+			  <li><a href="?pg=dnc" target="conteudo">DNC</a></li>
+			  <li><a href="?pg=production" target="conteudo">Production</a></li>
+			  <li class="sair"><a href="#">Out</a></li>
+           </ul>
+       </nav>
+   </header>
+   
+ <div class="container corpo">
+ 
+ <div class="panel-monitor">
+ <section>
+    <img src="img/machineON.jpg" alt="Machine ON">
+ </section>
+  <section>
+       <ul>
+        <li>Status: Active</li>
+        <li>Production Order: 0109</li>
+        <li>Emergency Stop: Unarmed</li>
+        <li>Control Mode: Automatic</li>
+        <li>Door Status:  Closed</li>
+        <li>Coolant: ON</li>
+		<li>Part Count: 2</li>
+      </ul>
+  </section><!-- fim .menu-departamentos -->
+  <section id="alarm-message">
+   Alarms/Messages:
+  </section>
+  </div>
+  
+  <div class="content" id="conteudo">
+  <h1> <?php
+  if (isset($_GET['pg'])) {   
+    switch ($_GET['pg']) {
+
+        case 'machine':
+        include "machine.php";
+        break;    
+
+
+        case 'dnc':
+        include "dnc.php";
+        break;
+         
+        case 'production':
+        include "paginas/fotos.php";
+        break;
+
+        default:
+        include "machine.php";
+        break;
+    }
+}else
+{
+  include "machine.php";
+}
+?></h1>
+  </div>
+  
+  <div class="panel-control">
+  <section class="video">
+    <!-- <iframe src="noimage.html" name="imagem" scroll="no"> --> <img src="img/4cameras.jpg" alt="videos">
+  </section>
+  <section class="cameras">
+  
+  <ol>
+      <!-- BUTTON -->
+      <li>
+        <a href="http://video.graco.unb.br/camera1.html" target="imagem">Cam 1</a>
+      </li> <!-- 2 -->
+       <li>
+        <a href="http://video.graco.unb.br/camera2.html" target="imagem">Cam 2</a>
+      </li>
+	  <li> <!-- 3 -->
+        <a href="http://video.graco.unb.br/camera3.html" target="imagem">Cam 3</a>
+      </li>
+      <li> <!-- 4 -->
+        <a href="http://video.graco.unb.br/camera4.html" target="imagem">Cam 4</a>
+      </li>
+	  <li> <!-- 5 -->
+        <a href="http://video.graco.unb.br/" target="_blank">All</a>
+      </li>
+   </ol>
+  </section>
+  
+  <section class="painel">
+    <form>
+	<h2>OPERATION PANEL:</h2>
+     <ol> 
+	   <li><input type="submit" class="comprar" value="AUTO"></li>
+	   <li><input type="submit" class="comprar" value="EDIT"></li>
+	   <li><input type="submit" class="comprar" value="MDI"></li>
+	   <li> </li>
+	   <!-- <li> </li> -->
+	   <li><input type="submit" class="comprar" value="RESET"></li>
+      </ol> 
+      <ol> 
+	    <li><input type="submit" class="comprar" value="SING&#010;BLOCK"></li>
+	    <li><input type="submit" class="comprar" value="BLOCK&#010;DELETE"></li>
+	    <li><input type="submit" class="comprar" value="OPT&#010;STOP"></li>
+	    <li> </li>
+		<!-- <li> </li> -->
+	    <li><input type="submit" class="comprar" value="JOG"></li>
+      </ol>
+	  <ol> 
+	    <li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	    <li><input type="submit" class="comprar" value="+X"></li>
+	    <li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	    <li><input type="submit" class="comprar" value="+C"></li>
+		<li></li>
+		<li></li>
+	    <!-- <li></li> -->
+		<li><input type="submit" class="comprar" value="OFFSET&#010;MEASUR"></li>
+	   </ol>
+	   <ol> 
+	     <li><input type="submit" class="comprar" value="-Z"></li>
+	     <li></li>
+	     <li><input type="submit" class="comprar" value="+Z"></li>
+	     <li></li>
+		 <li></li>
+		 <li></li>
+		 <li></li>
+		 <li></li>
+		 <li></li>
+		 <li></li>
+		 <li></li>
+		 <li></li>
+		 <li></li>
+		 <li></li>
+		 <li></li>
+		 <li></li>
+		 <li></li>
+		 <!-- <li></li> -->
+	     <li><input type="submit" class="comprar" value="DRY&#010;RUN"></li>
+      </ol>
+	  <ol> 
+	    <li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	    <li><input type="submit" class="comprar" value="-X"></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	    <li><input type="submit" class="comprar" value="-C"></li>
+		 <li></li>
+	    <!-- <li></li> -->
+		<li><input type="submit" class="comprar" value="PROG&#010;TEST"></li>
+	   </ol>
+	   <ol> 
+	   <li><input type="submit" class="comprar" value="Cycle&#010;Start"></li>
+	   <li></li>
+	   <li><input type="submit" class="comprar" value="Cycle&#010;Stop"></li>
+	   <li> <input type="submit" class="comprar" value="Coolant&#010;ON"></li>
+	   <li></li>
+	   <li><input type="submit" class="comprar" value="Coolant&#010;OFF"></li>
+	   <!-- <li></li> -->
+	   <li></li>
+      </ol> 
+  </form>
+  </section>
+  </div>
+</div>
+<footer>
+  <div class="container">
+    <img src="img/logo-rodape.png" alt="Logo Mirror Fashion">
+  </div>
+</footer>
+ <script src="js/converteMoeda.js"></script>
+ <script src="js/testaConversao.js"></script>
+  </body>
+</html>

@@ -1,0 +1,2 @@
+speed.cgi
+upload.exe

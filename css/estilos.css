@@ -1,0 +1,139 @@
+
+body {
+    margin: 0;
+    padding: 0;
+	color: #333333;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.main-container{
+	margin: 0 auto;
+    width: 90%;
+    border: 3px solid #73AD21; 
+    padding: 10px;
+	background-color:white;
+	position:relative;
+	display:table;
+}
+
+.control-left{
+	margin: auto;
+	float:left;
+	vertical-align:middle;
+	background-color:green;
+	color:white;
+	padding: 5px;
+	display:inline-block;
+	width:22%;
+    
+}
+
+.panel-button{
+	
+	border: 2px solid ; 
+	border-radius:4px;
+}
+
+.control-right{
+   margin: auto;
+   clear:left;
+   margin-left:10px;
+   vertical-align:middle;
+   background-color:blue;
+   color:yellow;
+   padding: 5px;
+   display:inline-block;
+   width:74%;
+ /*   right:1%; */
+}
+
+.control-left,.control-right{
+	border-radius: 4px;
+}
+.maquina{
+	left:50%;
+	margin-left:25px;
+	margin-top:5px;
+}
+li {
+	diplay:block;
+}
+form{
+	display:inline-block;
+}
+.mtcbutton{
+	padding-top:10px;
+	padding-left:10px;
+	padding-bottom:10px;
+}
+.mtcdisplay{
+	padding-top:10px;
+	padding-left:10px;
+	padding-bottom:10px;
+}
+
+.mtcdisplay h1{
+	background-color:rgb(217,217,217);
+	font-weight: bold;
+}
+
+.mtcdisplay table{
+	width:65%
+	font-size:9px;
+}
+.mtcdisplay td,th{
+	    border: 1px solid rgb(46,46,46);
+        text-align: center;
+        padding: 3px;
+		/* width:150px; */
+}
+ th {
+	font-weight: bold;
+}
+.mtcdisplay tr:nth-child(odd) {
+    background-color: rgb(215,228,189);
+}
+
+.dnc{
+	padding-top:10px;
+	padding-left:10px;
+	padding-bottom:10px;
+	font-size:11px;
+}
+.dncdisplay{
+	text-align:center;
+	padding-top:10px;
+	padding-left:10px;
+	padding-bottom:10px;
+}
+.mtcbutton,.mtcdisplay,.dnc,.dncdisplay{
+	width:63%;
+	/* clear:right; */
+	float:left;
+	display:inline-block;
+}
+
+.cameras{
+	/* padding:1px; */
+	display:block;
+	height:245px;
+	/* background: url(../img/4cameras.jpg) no-repeat; */
+	/* clear:right; */
+}
+.activecam{
+	padding:1px;
+	display:block;
+}
+.activecam button{
+	display:inline;
+}
+.listprogram{
+	padding:1px;
+	display:block;
+}
+.cameras,.activecam,.listprogram{
+	clear:left;
+	width:33%;
+	display:inline-block;
+	margin-left:10px;
+	padding:5px;
+}

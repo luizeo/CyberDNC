@@ -1,0 +1,49 @@
+body {
+  /* color: #333333; */
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+  
+table {
+  border-spacing: 0.2em;
+  border-collapse: separate;
+}
+th {
+  font-weight: bold;
+  padding: 0.3em 1em;
+  text-align: center;
+}
+td {
+  padding: 0.3em;
+}
+tr:nth-child(2n+1) {
+  background-color: #DDDDDD;
+}
+
+.detalhes {
+  padding: 2em 0;
+}
+.detalhes h2 {
+  font-size: 1.5em;
+  line-height: 2;
+}
+.detalhes p {
+  margin: 1em 0;
+  font-size: 1em;
+  line-height: 1.5;
+  max-width: 36em;
+}
+
+ .conteudo {
+	position:relative;
+	width:55%
+}
+.conteudo div {
+	position:relative;
+	display:block;
+	padding:10px;
+	margin-bottom:10px;
+}
+#program div {
+	 display:inline-block;
+	 margin-left: 10px;
+}
